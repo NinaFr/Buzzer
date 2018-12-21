@@ -34,16 +34,16 @@ float st_wind_up = 0;
 float st_walk_on = 4.7 * slowdown;
 float st_cha1 = 40.143 * slowdown; //.135 too early .145 too late
 float st_paso1 = 58.26 * slowdown; // .225 too early .27 too late
-float st_rumba1 = 77.331 * slowdown; //.3295 too early
+float st_rumba1 = 77.335 * slowdown; //.331 too early
 float st_samba1 = 108.411 * slowdown; // .41 too early .411 too late
 float st_cha2 = 121.244 * slowdown; //.243 too early .245 too late
-float st_paso2 = 136.23 * slowdown; //.22 is early
+float st_paso2 = 136.24 * slowdown; //.23 is early
 float st_jive1 = 152.176 * slowdown; // .177 too late
-float st_rumba2 = 180.114 * slowdown; //.11 too early .115 too late
+float st_rumba2 = 180.118 * slowdown; //.114 too early .115 too late
 float st_paso3 = 219.821 * slowdown; //.82 is too early .822 too late
 float st_cha3 = 223.129 * slowdown; // .131 too late
 float st_jive2 = 238.8 * slowdown; //238.97 too late //.9
-float st_samba2 = 250.855 * slowdown; //.865 too late
+float st_samba2 = 250.82 * slowdown; //.83 too late
 float st_jive3 = 270.285 * slowdown; //270.29 too late
 //float st_walk_off = 305.2 * slowdown; /.2 too late
 
@@ -138,28 +138,28 @@ int cha1() {
 int paso1() {
   int st = millis();
   for (int i = 0; i < 4; i++) {
-    bar(8, 120.96553, slowdown); //.96555 too fast .9655 too slow
+    bar(8, 120.96556, slowdown); //.96555 too slow
   }
   // fade into rumba
   digitalWrite(led, HIGH);
-  delay(10);
+  delay(5);
   digitalWrite(led, LOW);
-  delay(90);
+  delay(95);
   digitalWrite(led, HIGH);
-  delay(10);
+  delay(5);
   digitalWrite(led, LOW);
-  delay(((float)60 / 120.9 * 1000 * slowdown) - 110);
+  delay(((float)60 / 120.9 * 1000 * slowdown) - 105);
 
   for (int i = 1; i < 5; i++) {
     digitalWrite(led, HIGH);
-    delay(10);
+    delay(5);
     digitalWrite(led, LOW);
-    delay(((float)60 / (120.9 - 5 * i) * 1000) * slowdown - 10);
+    delay(((float)60 / (120.9 - 5 * i) * 1000) * slowdown - 5);
   }
   digitalWrite(led, HIGH);
-  delay(10);
+  delay(5);
   digitalWrite(led, LOW);
-  delay(((float)60 / 95 * 1000) * slowdown - 10);
+  delay(((float)60 / 95 * 1000) * slowdown - 5);
 
   int et = millis();
   return (float)(st - et) / 1000;
@@ -168,7 +168,7 @@ int paso1() {
 int rumba1() {
   int st = millis();
   for (int i = 0; i < 12; i++) {
-    bar(4, 94.9, slowdown); //.89 too slow
+    bar(4, 94.91, slowdown); //.9 too slow
   }
   int et = millis();
   return (float)(st - et) / 1000;
@@ -187,11 +187,11 @@ int samba1() {
 int cha2() {
   int st = millis();
   for (int i = 0; i < 7; i++) {
-    bar(4, 129.28, slowdown); //.29 too fast
+    bar(4, 129.27, slowdown); //.28 too fast
   }
 
   // Stretch into paso
-  bar(4, 129.29, slowdown);
+  bar(4, 129.27, slowdown);
   int et = millis();
   return (float)(st - et) / 1000;
 }
@@ -212,30 +212,30 @@ int jive1() {
   bar(4, 163.449, slowdown);//.44 too slow .45 too fast
 
   for (int i = 0; i < 8; i++) {
-    bar(8, 163.327, slowdown); // .325<*<.4
+    bar(8, 163.3275, slowdown); // .327<*<.4
   }
 
   // fade into rumba
   digitalWrite(led, HIGH);
-  delay(10);
+  delay(5);
   digitalWrite(led, LOW);
-  delay(90);
+  delay(95);
   digitalWrite(led, HIGH);
-  delay(10);
+  delay(5);
   digitalWrite(led, LOW);
-  delay(((float)60 / 163.6 * 1000) * slowdown - 110);
+  delay(((float)60 / 163.6 * 1000) * slowdown - 105);
 
   for (int i = 1; i < 4; i++) {
     digitalWrite(led, HIGH);
-    delay(10);
+    delay(5);
     digitalWrite(led, LOW);
-    delay(((float)60 / 163.6 * 1000) * slowdown - 10);
+    delay(((float)60 / 163.6 * 1000) * slowdown - 5);
   }
   for (int i = 0; i < 2; i++) {
     digitalWrite(led, HIGH);
-    delay(10);
+    delay(5);
     digitalWrite(led, LOW);
-    delay(((float)60 / 85 * 1000) * slowdown - 10);
+    delay(((float)60 / 85 * 1000) * slowdown - 5);
   }
 
   int et = millis();
@@ -245,7 +245,7 @@ int jive1() {
 int rumba2() {
   int st = millis();
   for (int i = 0; i < 12; i++) {
-    bar(4, 96.845, slowdown); //.84 too slow
+    bar(4, 96.855, slowdown); //.845 too slow
   }
   int et = millis();
   return (float)(st - et) / 1000;
@@ -257,29 +257,29 @@ int paso3() {
   bar(4, 107, slowdown);
   for (int i = 0; i < 4; i++) {
     digitalWrite(led, HIGH);
-    delay(10);
+    delay(5);
     digitalWrite(led, LOW);
-    delay(((float)60 / (107 + 2 * (i + 1)) * 1000) * slowdown - 10);
+    delay(((float)60 / (107 + 2 * (i + 1)) * 1000) * slowdown - 5);
   }
   digitalWrite(led, HIGH);
-  delay(10);
+  delay(5);
   digitalWrite(led, LOW);
-  delay(90);
+  delay(95);
   digitalWrite(led, HIGH);
-  delay(10);
+  delay(5);
   digitalWrite(led, LOW);
-  delay(((float)60 / 112 * 1000) * slowdown - 110);
+  delay(((float)60 / 112 * 1000) * slowdown - 105);
   for (int i = 1; i < 4; i++) {
     digitalWrite(led, HIGH);
-    delay(10);
+    delay(5);
     digitalWrite(led, LOW);
-    delay(((float)60 / (113 + 4.5 * i) * 1000) * slowdown - 10);
+    delay(((float)60 / (113 + 4.5 * i) * 1000) * slowdown - 5);
   }
   for (int i = 0; i < 4; i++) {
     digitalWrite(led, HIGH);
-    delay(10);
+    delay(5);
     digitalWrite(led, LOW);
-    delay(((float)60 / 127.65 * 1000) * slowdown - 10);
+    delay(((float)60 / 127.65 * 1000) * slowdown - 5);
   }
 
   int et = millis();
@@ -293,9 +293,9 @@ int cha3() {
   }
   bar(3, 127.6944, slowdown); //127.6945 too fast .6942 too slow
   digitalWrite(led, HIGH);
-  delay(10);
+  delay(5);
   digitalWrite(led, LOW);
-  delay(((float)60 / 140 * 1000) * slowdown - 10);
+  delay(((float)60 / 140 * 1000) * slowdown - 5);
   int et = millis();
   return (float)(st - et) / 1000;
 }
@@ -324,7 +324,7 @@ int jive3() {
   int st = millis();
 
   for (int i = 0; i < 7; i++) {
-    bar(8, 163.602, slowdown); //163.605 too fast .6 too slow
+    bar(8, 163.599, slowdown); //163.602 too fast .6 too slow //.595
   }
 
   // steps before walk off
@@ -344,14 +344,14 @@ void walk_off() {
   digitalWrite(led, HIGH);
   delay(1100 * slowdown);
   digitalWrite(led, LOW);
-  delay(500 * slowdown);
+  delay(490 * slowdown);
 
   digitalWrite(led, HIGH);
-  delay(10);
+  delay(5);
   digitalWrite(led, LOW);
-  delay(((float)60 / 123.52 * 1000) * slowdown - 10);
+  delay(((float)60 / 123.52 * 1000) * slowdown - 5);
   for (int i = 0; i < 8; i++) {
-    bar(8, 123.54, slowdown); // 123.53 too slow
+    bar(8, 123.65, slowdown); // 123.56 too slow
   }
 }
 
@@ -359,20 +359,20 @@ void bar(int beats, float bpm, float slowdown) {
   float beat = ((float)60 / bpm * 1000) * slowdown;
   // 1
   digitalWrite(led, HIGH);
-  delay(10);
+  delay(5);
   digitalWrite(led, LOW);
-  delay(90);
+  delay(95);
   digitalWrite(led, HIGH);
-  delay(10);
+  delay(5);
   digitalWrite(led, LOW);
-  delay(beat - 110);
+  delay(beat - 105);
 
   // remaining beats
   int i;
   for (i = 2; i <= beats; i++) {
     digitalWrite(led, HIGH);
-    delay(10);
+    delay(5);
     digitalWrite(led, LOW);
-    delay(beat - 10);
+    delay(beat - 5);
   }
 }
