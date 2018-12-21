@@ -28,20 +28,20 @@ int led = 9;
 
 float st_wind_up = 0;
 float st_walk_on = 4.7;
-float st_cha1 = 40.145; //.135 too early
-float st_paso1 = 58.295; // .225 too early .23 too late
+float st_cha1 = 40.143; //.135 too early .145 too late
+float st_paso1 = 58.275; // .225 too early .28 too late
 float st_rumba1 = 77.331; //.3295 too early
-float st_samba1 = 108.412; // .41 too early .415 too late
-float st_cha2 = 121.25; //.241 too early
+float st_samba1 = 108.41; // .41 too early .411 too late
+float st_cha2 = 121.243; //.241 too early .245 too late
 float st_paso2 = 136.23; //.22 is early
-float st_jive1 = 152.181; // .18 too early .182 too late
-float st_rumba2 = 180.115; //.11 too early
-float st_paso3 = 219.825; //.82 is too early .83 too late
-float st_cha3 = 223.134; // early 233.13 too early .135 too late
-float st_jive2 = 239.054; //239.052 too early /239.055 too late
-float st_samba2 = 250.89; //.89 early .892 too late
-float st_jive3 = 270.305; //270.3 early .31 too late
-float st_walk_off = 305.2; //294.9 early
+float st_jive1 = 152.18; // .18 too early .181 too late
+float st_rumba2 = 180.114; //.11 too early .115 too late
+float st_paso3 = 219.821; //.82 is too early .822 too late
+float st_cha3 = 223.129; // .131 too late
+float st_jive2 = 238.97; //239.02 too late
+float st_samba2 = 250.865; //.87 too late
+float st_jive3 = 270.295; //270.95 too late
+//float st_walk_off = 305.2; /.2 too late
 
 long len;
 // the setup function runs once when you press reset or power the board
@@ -83,8 +83,9 @@ void loop() {
   len = samba2();
   delay(st_jive3 - st_samba2 - len);
   len = jive3();
-  delay(st_walk_off - st_jive3 - len);
+//  delay(st_walk_off - st_jive3 - len);
   walk_off();
+  delay(2000);
 }
 
 int wind_up() {
@@ -111,7 +112,7 @@ int walk_on() {
     bar(8, 129.875); //.8754 too fast
   }
   for (int i = 0; i < 1; i++) {
-    bar(4, 129.87); //.871 too fast
+    bar(4, 129.8685); //.869 too fast
   }
   int et = millis();
   return (float)(st - et) / 1000;
@@ -239,7 +240,7 @@ int jive1() {
 int rumba2() {
   int st = millis();
   for (int i = 0; i < 12; i++) {
-    bar(4, 96.84); //.83 too slow
+    bar(4, 96.845); //.84 too slow
   }
   int et = millis();
   return (float)(st - et) / 1000;
@@ -253,7 +254,7 @@ int paso3() {
     digitalWrite(led, HIGH);
     delay(10);
     digitalWrite(led, LOW);
-    delay((float)60 / (107 + 1 * (i + 1)) * 1000 - 10);
+    delay((float)60 / (107 + 2 * (i + 1)) * 1000 - 10);
   }
   digitalWrite(led, HIGH);
   delay(10);
@@ -267,7 +268,7 @@ int paso3() {
     digitalWrite(led, HIGH);
     delay(10);
     digitalWrite(led, LOW);
-    delay((float)60 / (112 + 4 * i) * 1000 - 10);
+    delay((float)60 / (113 + 4.5 * i) * 1000 - 10);
   }
   for (int i = 0; i < 4; i++) {
     digitalWrite(led, HIGH);
@@ -283,7 +284,7 @@ int paso3() {
 int cha3() {
   int st = millis();
   for (int i = 0; i < 8; i++) {
-    bar(4, 127.6941); //127.6945 too fast .694 too slow
+    bar(4, 127.6944); //127.6945 too fast .6942 too slow
   }
   int et = millis();
   return (float)(st - et) / 1000;
@@ -293,7 +294,7 @@ int cha3() {
 int jive2() {
   int st = millis();
   for (int i = 0; i < 4; i++) {
-    bar(8, 162.5); //163 too fast
+    bar(8, 162.55); //163 too fast 162.5 too slow
   }
   int et = millis();
   return (float)(st - et) / 1000;
@@ -313,7 +314,7 @@ int jive3() {
   int st = millis();
 
   for (int i = 0; i < 7; i++) {
-    bar(8, 163.6); //163.63 too fast
+    bar(8, 163.61); //163.63 too fast .6 too slow
   }
 
   // steps before walk off
@@ -324,7 +325,7 @@ int jive3() {
   delay(1500);
 
   int et = millis();
-  return ((float)(st - et) / 1000);
+  return (float)(st - et) / 1000;
 }
 
 
@@ -333,14 +334,14 @@ void walk_off() {
   digitalWrite(led, HIGH);
   delay(1100);
   digitalWrite(led, LOW);
-  delay(524);
+  delay(500);
   
   digitalWrite(led, HIGH);
   delay(10);
   digitalWrite(led, LOW);
   delay((float)60 / 123.52 * 1000 - 10);
   for (int i = 0; i < 8; i++) {
-    bar(8, 123.515); // 123.51 too slow 123.52 too fast
+    bar(8, 123.54); // 123.53 too slow
   }
 }
 
