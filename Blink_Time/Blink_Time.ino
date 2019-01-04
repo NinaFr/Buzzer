@@ -16,18 +16,18 @@ float slowdown = (float) PERCENTAGE_SPEED / 100;
 float st_wind_up = 0;
 float st_walk_on = 4.7 * slowdown;
 float st_cha1 = 40.143 * slowdown; //.135 too early .145 too late
-float st_paso1 = 58.26 * slowdown; // .225 too early .27 too late
+float st_paso1 = 58.257 * slowdown; // .255 too early .258 too late
 float st_rumba1 = 77.335 * slowdown; //.331 too early
-float st_samba1 = 108.411 * slowdown; // .41 too early .411 too late
+float st_samba1 = 108.4108 * slowdown; // .4105 too early .411 too late
 float st_cha2 = 121.244 * slowdown; //.243 too early .245 too late
-float st_paso2 = 136.24 * slowdown; //.23 is early
-float st_jive1 = 152.176 * slowdown; // .177 too late
+float st_paso2 = 136.245 * slowdown; //.24 is early
+float st_jive1 = 152.16 * slowdown; // .176 too late
 float st_rumba2 = 180.118 * slowdown; //.114 too early .115 too late
 float st_paso3 = 219.821 * slowdown; //.82 is too early .822 too late
 float st_cha3 = 223.129 * slowdown; // .131 too late
-float st_jive2 = 238.8 * slowdown; //238.97 too late //.9
-float st_samba2 = 250.82 * slowdown; //.83 too late
-float st_jive3 = 270.285 * slowdown; //270.29 too late
+float st_jive2 = 238.79 * slowdown; //238.8 too late
+float st_samba2 = 250.803 * slowdown; //.805 too late
+float st_jive3 = 270.28 * slowdown; //270.285 too late
 //float st_walk_off = 305.2 * slowdown; /.2 too late
 
 long len;
@@ -94,10 +94,10 @@ int walk_on() {
     bar(8, 129.8, slowdown);
   }
   for (int i = 0; i < 3; i++) {
-    bar(8, 129.874, slowdown); //.8749 too fast
+    bar(8, 129.8745, slowdown); //.8749 too fast
   }
   for (int i = 0; i < 3; i++) {
-    bar(8, 129.875, slowdown); //.8754 too fast
+    bar(8, 129.8745, slowdown); //.8754 too fast
   }
   for (int i = 0; i < 1; i++) {
     bar(4, 129.8685, slowdown); //.869 too fast
@@ -151,7 +151,7 @@ int paso1() {
 int rumba1() {
   int st = millis();
   for (int i = 0; i < 12; i++) {
-    bar(4, 94.91, slowdown); //.9 too slow
+    bar(4, 94.909, slowdown); //.9 too slow .91 too fast
   }
   int et = millis();
   return (float)(st - et) / 1000;
@@ -327,7 +327,7 @@ void walk_off() {
   digitalWrite(led, HIGH);
   delay(1100 * slowdown);
   digitalWrite(led, LOW);
-  delay(490 * slowdown);
+  delay(482 * slowdown);
 
   digitalWrite(led, HIGH);
   delay(5);
