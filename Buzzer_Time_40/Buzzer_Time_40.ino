@@ -5,33 +5,11 @@
 
 */
 
-//import java.util.concurrent.TimeUnit;
-
-int buzzer = 9;
+int buzzer = 0;
 
 int PERCENTAGE_SPEED = 100;
 
 float slowdown = (float) PERCENTAGE_SPEED / 100;
-
-/* implemented on 119% needs checking on 119% and 100!!
- * W 
- * C 
- * P late **
- * R 
- * S 
- * C 
- * P 
- * J 
- * R 
- * P 
- * C 
- * J 
- * S late **
- * J 
- * W late **
- * 
- */
-
 
 float st_wind_up = 0;
 float st_walk_on = 4.7 * slowdown;
