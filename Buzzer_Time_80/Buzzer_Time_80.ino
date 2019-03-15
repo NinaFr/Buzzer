@@ -117,12 +117,6 @@ long walk_on() {
     bar(4, 129.89, slowdown); //.87 too slow
   }
   long et = millis();
-  /*
-  Serial.print("st: ");
-  Serial.print(st);
-  Serial.print("et: ");
-  Serial.print(et);
-  */
   return et - st;
 }
 
