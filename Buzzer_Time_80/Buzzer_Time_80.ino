@@ -12,22 +12,22 @@ int PERCENTAGE_SPEED = 100;
 
 float slowdown = (float) PERCENTAGE_SPEED / 100;
 
-float st_wind_up = 0;
-float st_walk_on = 4.7 * slowdown;
-float st_cha1 = 40.143 * slowdown; //.135 too early .145 too late
-float st_paso1 = 58.257 * slowdown; // .255 too early .258 too late
-float st_rumba1 = 77.335 * slowdown; //.331 too early
-float st_samba1 = 108.4108 * slowdown; // .4105 too early .411 too late
-float st_cha2 = 121.244 * slowdown; //.243 too early .245 too late
-float st_paso2 = 136.245 * slowdown; //.24 is early
-float st_jive1 = 152.16 * slowdown; // .176 too late
-float st_rumba2 = 180.118 * slowdown; //.114 too early .115 too late
-float st_paso3 = 219.821 * slowdown; //.82 is too early .822 too late
-float st_cha3 = 223.129 * slowdown; // .131 too late
-float st_jive2 = 238.79 * slowdown; //238.8 too late
-float st_samba2 = 250.803 * slowdown; //.805 too late
-float st_jive3 = 270.28 * slowdown; //270.285 too late
-//float st_walk_off = 305.2 * slowdown; /.2 too late
+long st_wind_up = 0 * 1000;
+long st_walk_on = 4.5 * 1000 * slowdown;
+long st_cha1 = 39.563 * 1000 * slowdown;
+long st_paso1 = 57.384 * 1000 * slowdown;
+long st_rumba1 = 76.603 * 1000 * slowdown;
+long st_samba1 = 106.941 * 1000 * slowdown;
+long st_cha2 = 120.598 * 1000 * slowdown;
+long st_paso2 = 135.448 * 1000 * slowdown;
+long st_jive1 = 151.065 * 1000 * slowdown;
+long st_rumba2 = 178.898 * 1000 * slowdown;
+long st_paso3 = 208.613 * 1000 * slowdown;
+long st_cha3 = 221.589 * 1000 * slowdown;
+long st_jive2 = 236.558 * 1000 * slowdown;
+long st_samba2 = 248.367 * 1000 * slowdown;
+long st_jive3 = 266.768 * 1000 * slowdown;
+long st_walk_off = 302 * 1000 * slowdown; //without delay: 288.831
 
 long len;
 // the setup function runs once when you press reset or power the board
@@ -38,57 +38,72 @@ void setup() {
 
 // the loop function runs over and over again forever
 void loop() {
-  bar(4, 49.7, slowdown);
-
+  counting_in();
+  long init_st = millis();
+  long current_time = 0;
   len = wind_up();
-  delay(20 * slowdown);
-  delay(st_walk_on - st_wind_up - len);
+  current_time += len; 
+  next_delay(st_walk_on, current_time);
   len = walk_on();
-  delay(st_cha1 - st_walk_on - len);
+  current_time += len; 
+  next_delay(st_cha1, current_time);
   len = cha1();
-  delay(st_paso1 - st_cha1 - len);
+  current_time += len;
+  next_delay(st_paso1, current_time);
   len = paso1();
-  delay(st_rumba1 - st_paso1 - len);
+  current_time += len;
+  next_delay(st_rumba1, current_time);
   len = rumba1();
-  delay(st_samba1 - st_rumba1 - len);
+  current_time += len;
+  next_delay(st_samba1, current_time);
   len = samba1();
-  delay(st_cha2 - st_samba1 - len);
+  current_time += len;
+  next_delay(st_cha2, current_time);
   len = cha2();
-  delay(st_paso2 - st_cha2 - len);
+  current_time += len;
+  next_delay(st_paso2, current_time);
   len = paso2();
-  delay(st_jive1 - st_paso2 - len);
+  current_time += len;
+  next_delay(st_jive1, current_time);
   len = jive1();
-  delay(st_rumba2 - st_jive1 - len);
+  current_time += len;
+  next_delay(st_rumba2, current_time);
   len = rumba2();
-  delay(st_paso3 - st_rumba2 - len);
+  current_time += len;
+  next_delay(st_paso3, current_time);
   len = paso3();
-  delay(st_cha3 - st_paso3 - len);
+  current_time += len;
+  next_delay(st_cha3, current_time);
   len = cha3();
-  delay(st_jive2 - st_cha3 - len);
+  current_time += len;
+  next_delay(st_jive2, current_time);
   len = jive2();
-  delay(st_samba2 - st_jive2 - len);
+  current_time += len;
+  next_delay(st_samba2, current_time);
   len = samba2();
-  delay(st_jive3 - st_samba2 - len);
+  current_time += len;
+  next_delay(st_jive3, current_time);
   len = jive3();
-  //  delay(st_walk_off - st_jive3 - len);
+  current_time += len;
+  next_delay(st_walk_off, current_time);
   walk_off();
   delay(2000 * slowdown);
 }
 
-int wind_up() {
-  int st = millis();
+long wind_up() {
+  long st = millis();
   for (int i = 0; i < 3; i++) {
     digitalWrite(buzzer, HIGH);
-    delay(1000 * slowdown);
+    delay(600 * slowdown);
     digitalWrite(buzzer, LOW);
-    delay(500 * slowdown);
+    delay(900 * slowdown);
   }
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
-int walk_on() {
-  int st = millis();
+long walk_on() {
+  long st = millis();
   for (int i = 0; i < 3; i++) {
     bar(8, 129.8, slowdown);
   }
@@ -99,26 +114,27 @@ int walk_on() {
     bar(8, 129.8745, slowdown); //.8754 too fast
   }
   for (int i = 0; i < 1; i++) {
-    bar(4, 129.8685, slowdown); //.869 too fast
+    bar(4, 129.89, slowdown); //.87 too slow
   }
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
-int cha1() {
-  int st = millis();
-  for (int i = 0; i < 5; i++) {
+long cha1() {
+  long st = millis();
+  bar(4, 123, slowdown); // 98 too slow
+  for (int i = 1; i < 5; i++) {
     bar(4, 120.9675, slowdown); //9677 too fast
   }
   for (int i = 0; i < 2; i++) {
     bar(8, 120.9677, slowdown);
   }
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
-int paso1() {
-  int st = millis();
+long paso1() {
+  long st = millis();
   for (int i = 0; i < 4; i++) {
     bar(8, 120.96556, slowdown); //.96555 too slow
   }
@@ -139,53 +155,53 @@ int paso1() {
   digitalWrite(buzzer, LOW);
   delay(((float)60 / 95 * 1000) * slowdown - 80);
 
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
-int rumba1() {
-  int st = millis();
+long rumba1() {
+  long st = millis();
   for (int i = 0; i < 12; i++) {
     bar(4, 94.909, slowdown); //.9 too slow .91 too fast
   }
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
-int samba1() {
-  int st = millis();
+long samba1() {
+  long st = millis();
   for (int i = 0; i < 3; i++) {
     bar(8, 105.436, slowdown); //.434 too slow .435 too fast
   }
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
 
-int cha2() {
-  int st = millis();
+long cha2() {
+  long st = millis();
   for (int i = 0; i < 7; i++) {
     bar(4, 129.27, slowdown); //.28 too fast
   }
 
   // Stretch into paso
   bar(4, 129.27, slowdown);
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
 
-int paso2() {
-  int st = millis();
+long paso2() {
+  long st = millis();
   for (int i = 0; i < 4; i++) {
     bar(8, 122.882, slowdown); //.883 too fast
   }
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
-int jive1() {
-  int st = millis();
+long jive1() {
+  long st = millis();
   // ticks into Jive
   bar(4, 163.449, slowdown);//.44 too slow .45 too fast
 
@@ -212,21 +228,21 @@ int jive1() {
     delay(((float)60 / 85 * 1000) * slowdown - 80);
   }
 
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
-int rumba2() {
-  int st = millis();
+long rumba2() {
+  long st = millis();
   for (int i = 0; i < 12; i++) {
     bar(4, 96.855, slowdown); //.845 too slow
   }
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
-int paso3() {
-  int st = millis();
+long paso3() {
+  long st = millis();
   bar(8, 102, slowdown);
   bar(4, 107, slowdown);
   for (int i = 0; i < 4; i++) {
@@ -252,12 +268,12 @@ int paso3() {
     delay(((float)60 / 127.65 * 1000) * slowdown - 80);
   }
 
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
-int cha3() {
-  int st = millis();
+long cha3() {
+  long st = millis();
   for (int i = 0; i < 7; i++) {
     bar(4, 127.6944, slowdown); //127.6945 too fast .6942 too slow
   }
@@ -266,32 +282,32 @@ int cha3() {
   delay(80);
   digitalWrite(buzzer, LOW);
   delay(((float)60 / 140 * 1000) * slowdown - 80);
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
 
-int jive2() {
-  int st = millis();
+long jive2() {
+  long st = millis();
   for (int i = 0; i < 4; i++) {
     bar(8, 162.55, slowdown); //163 too fast 162.5 too slow
   }
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
-int samba2() {
-  int st = millis();
+long samba2() {
+  long st = millis();
 
   for (int i = 0; i < 4; i++) {
     bar(8, 104.2, slowdown); //104.5 too fast
   }
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
-int jive3() {
-  int st = millis();
+long jive3() {
+  long st = millis();
 
   for (int i = 0; i < 7; i++) {
     bar(8, 163.599, slowdown); //163.602 too fast .6 too slow //.595
@@ -302,10 +318,9 @@ int jive3() {
   digitalWrite(buzzer, HIGH);
   delay(100 * slowdown);
   digitalWrite(buzzer, LOW);
-  delay(1500 * slowdown);
 
-  int et = millis();
-  return (float)(st - et) / 1000;
+  long et = millis();
+  return et - st;
 }
 
 
@@ -323,6 +338,34 @@ void walk_off() {
   for (int i = 0; i < 8; i++) {
     bar(8, 123.65, slowdown); // 123.56 too slow
   }
+}
+
+void counting_in() {
+  long count_beat = ((float)60 / 49.7 * 1000) * slowdown;
+  digitalWrite(buzzer, HIGH);
+  delay(160);
+  digitalWrite(buzzer, LOW);
+  delay(count_beat - 160);
+
+  // remaining beats
+  int i;
+  for (i = 2; i < 4; i++) {
+    digitalWrite(buzzer, HIGH);
+    delay(80);
+    digitalWrite(buzzer, LOW);
+    delay(count_beat - 80);
+  }
+    digitalWrite(buzzer, HIGH);
+    delay(80);
+    digitalWrite(buzzer, LOW);
+    delay(count_beat - 80 - 140); // 170 too short
+}
+
+void next_delay(long next_time, long current_time) 
+{
+    long total_delay = next_time - current_time;
+    
+    delay(max(total_delay, 0));
 }
 
 void bar(int beats, float bpm, float slowdown) {
